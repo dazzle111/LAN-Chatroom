@@ -28,21 +28,21 @@ int main(int argc,char **argv)	                         		//处理客户端的�
 
 四、函数说明：
 ①.服务端：
-	int main(int argc,char **argv)
+int main(int argc,char **argv)
 		主函数，一直处于循环accept状态。当客户端与服务端进行连接并登陆验证完毕之后，
 	将创建线程进行解析处理该客户端发送给服务端的信息。
 
-	int find_name(const char *name)
+int find_name(const char *name)
 		 从记录客户端姓名的列表中寻找name，若找到则返回该名字在对应的列表中的序号，
   之后主要用于在记录客户端套接字列表中找到对应姓名的套接字，然后进行传输内容。
   若未找到相应的套接字则返回-1；
 
-  	int find_socket(int sock)
+int find_socket(int sock)
 	    寻找客户端套接字sock在套接字列表中的序号，若找到则返回该套接字在对应列表中的序号，
 	之后主要用于在客户端姓名列表中找到对应的姓名，然后对传输的内容进行标识，
 	提示客户端信息的来源。若未找到对应的姓名，返回-1.
 
-  	void *my_run(int *arg) 
+void *my_run(int *arg) 
 	    线程函数，通过参数*arg获取客户端对应的套接字。用局部变量记录该套接字，
 	然后通过该套接字解析对应客户所发送的信息，并进行转发或退出操作。
 	例如：”ls”命令:将记录用户登录姓名的列表发送至查看好友在线信息的客户端上，
@@ -52,11 +52,11 @@ int main(int argc,char **argv)	                         		//处理客户端的�
 	若接受到用户发送的信息为”exit”,则返回信息”goodbye”给用户，欢迎用户下次再登陆，然后断开连接。
 
 ②客户端:
-  	void input_userinfo(int conn_fd,char *string)
+void input_userinfo(int conn_fd,char *string)
 		  通过套接字将用户姓名与密码发送至服务器验证，若服务器验证成功返回y,则可以正常用服务器进行通信，
 	否则将会一直停留在验证信息的阶段，可用ctrl+c退出.
 
-	int main(int argc,char **argv)
+int main(int argc,char **argv)
 		主函数，通过命令行直接获取参数。例如argv[1]为ip地址，argv[2]为端口号。若输入错误则会提示段错误。
 	之所以如此设计，是为了方便调试，可以提高查找在编写过程产生的bug的速度。
 	当获取命令行参数正确之后，用服务端进行连接，

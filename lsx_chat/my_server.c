@@ -132,8 +132,7 @@ void *my_run(int *arg)	//解析命令，发送接收发送信息。
 		int t;
 		if((strcmp(recv_buf,"ls")) == 0)	//如果接收到的信息为ls，返回当前在线用户名字与IP
 		{
-			//char aaa[10];
-			//memset(aaa, 0, sizeof(aaa));
+		
 			memset(tips5,0,sizeof(tips5));
 			for(i=0; i<data_len;i++)
 			{
@@ -141,12 +140,11 @@ void *my_run(int *arg)	//解析命令，发送接收发送信息。
 				strcat(tips5,calculate_name[i]);
 				sleep(1);
 				send(conn_fd, tips5, strlen(tips5), 0);
-			//	printf("calculate_name is :%s\n",calculate_name[i]);
+	
 				memset(tips5,0,sizeof(tips5));
-			//	strcat(aaa, calculate_name[i]);
+	
 			}
-				//send(conn_fd, calculate_name[i], strlen(calculate_name[i]), 0);
-			//	send(conn_fd, aaa, strlen(calculate_name[i]), 0);
+		
 			continue;
 		}
 		
